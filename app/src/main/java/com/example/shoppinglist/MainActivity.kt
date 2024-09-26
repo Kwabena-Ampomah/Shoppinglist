@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TaskList() {
     var taskText by remember { mutableStateOf("") }
+    var quantText by remember { mutableStateOf("") }
     var taskList by remember { mutableStateOf(listOf<String>()) }
     //profs code
     LazyColumn {
@@ -55,7 +56,13 @@ fun TaskList() {
             TextField(
                 value = taskText,
                 onValueChange = { taskText = it },
-                label = { Text("Enter item") },
+                label = { Text("Enter shoppingitem") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            TextField(
+                value = quantText,
+                onValueChange = { quantText = it },
+                label = { Text("Enter quantity") },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -65,8 +72,10 @@ fun TaskList() {
             Button(
                 onClick = {
                     if (taskText.isNotBlank()) {
-                        taskList = taskList + taskText // Add task to the list
+                        taskText="item:  "+taskText+"  Quantity:   "+quantText
+                        taskList = taskList + (taskText)// Add task to the list
                         taskText = "" // Clear input after adding
+                        quantText = ""
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -99,6 +108,7 @@ fun TaskList() {
                         isChecked = checked
                         if (checked) {
                             taskList = taskList - task
+                            isChecked=false
                         }
                     }
                 )
